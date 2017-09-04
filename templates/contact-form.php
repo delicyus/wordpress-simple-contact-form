@@ -3,6 +3,14 @@
 global $Deli_Contact_Plugin;
 if($Deli_Contact_Plugin){
 	?>
+
+	<div id="app">
+		<form v-on:submit="handleSubmit">
+			<p>Message is: {{ message }}</p> <input v-model="message" placeholder="edit me">
+			<input type="submit">
+		</form>
+	</div>	
+
 	<div id="respond" class="deli-contact">
 	  
 	  <?php echo $Deli_Contact_Plugin -> response; ?>

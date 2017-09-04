@@ -22,7 +22,7 @@ if(! class_exists('Deli_Contact_Plugin') ){
 			$this -> not_human       = "Merci de valider la v&eacute;rification.";
 			$this -> missing_content = "Merci de remplir tous les champs.";
 			$this -> email_invalid   = "Adresse e-mail invalide.";
-			$this -> message_unsent  = "Message non envoy&eacute;. Merci de r&eacute;essayer ullt&eacute;rieurement.";
+			$this -> message_unsent  = "Message non envoy&eacute;. Merci de r&eacute;essayer ult&eacute;rieurement.";
 			$this -> message_sent    = "Bravo ! Votre message est bien parti.";
 
 			//user posted variables
@@ -47,22 +47,33 @@ if(! class_exists('Deli_Contact_Plugin') ){
 
         	// Hooks
 
-        	// Shotcode pour le fomrulaire
+        	// Shotcode pour le formulaire
 			add_shortcode('render_formulaire', array($this,'render_formulaire'));
+        	
+        	// process the submitted form 
+	        add_action('wp_head', array($this,'process_form'));
 
-			// CSS 
-			// sur la page contact only -> if(is_page($this -> page_contact_slug))
+			// Sur la home et la page contact only 
+	        // if( is_page($this -> page_contact_slug ) ){
+				// CSS 	
 		        wp_enqueue_style( 
 		        	'deli-contact-css', 
 		        	plugin_dir_url(__FILE__) . '/styles.css' , 
 		        	'' ,  
 		        	strtotime(date('Y-m-d H:i:s') )  , 
 		        	'screen' );
-        
-        	// process the submitted form 
-	        add_action('wp_head', array($this,'process_form'));
+			    // JS 
+	            add_action( 'wp_enqueue_scripts', array($this, 'scripts_styles') , 0 );  
+	        // }
+
         }
 
+        // CS JS 
+        public function scripts_styles(){
+            // JS app
+            wp_enqueue_script( 'vuejs-cdn', 'https://unpkg.com/vue@2.4.2/dist/vue.js' , '' , '2.4.2' , true);
+            wp_enqueue_script( 'vuesjs-app', plugin_dir_url(__FILE__) . '/js/app.js' , array("vuejs-cdn") ,  strtotime(date('Y-m-d H:i:s') ) , true );
+        }
 
 
         // PROCESSING
@@ -111,7 +122,6 @@ if(! class_exists('Deli_Contact_Plugin') ){
 			else 
 				$this ->response = "<div class='error'>{$message}</div>";
 		}        
-
 
 
 
