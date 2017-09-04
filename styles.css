@@ -1,0 +1,16 @@
+  .error{
+    padding: 5px 9px;
+    border: 1px solid red;
+    color: red;
+    border-radius: 3px;
+  }
+
+  .success{
+    padding: 5px 9px;
+    border: 1px solid green;
+    color: green;
+    border-radius: 3px;
+  }
+.deli-contact{
+  padding: 1em
+}
