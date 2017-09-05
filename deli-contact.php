@@ -63,7 +63,7 @@ if(! class_exists('Deli_Contact_Plugin') ){
 		        	strtotime(date('Y-m-d H:i:s') )  , 
 		        	'screen' );
 			    // JS 
-	            add_action( 'wp_enqueue_scripts', array($this, 'scripts_styles') , 0 );  
+	            add_action( 'wp_enqueue_scripts', array( $this, 'scripts_styles') , 0 );  
 	        // }
 
         }
