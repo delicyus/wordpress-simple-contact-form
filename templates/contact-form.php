@@ -51,11 +51,15 @@ if($Deli_Contact_Plugin){
 	    	</p>
 
 	    	<p>
-	    		<input type="text" disabled="disabled" id="mainCaptcha"  v-model="Captcha()"/>
+	    		<input type="text" disabled="disabled" id="mainCaptcha"  v-model="CaptchaVal"/>
               	<input type="button" id="refresh" value="Refresh" v-on:click="Captcha" />
-              	<input id="Button1" type="button" v-on:click="ValidCaptcha" value="check" />	
+              	<br>
+              	<!-- <input id="Button1" type="button" v-on:click="ValidCaptcha" value="check" />	 -->
+              	<label for="nom"><?php echo $attributes ['wordings'] ['verification'] ?> <span>*</span></label>
               	<input type="text" id="txtInput"/>  
-              	<span v-if="!ValidCaptcha()">err captcha</span>  			
+              	<ul>
+	              	<li v-if="!isValidCaptcha" class="error">err captcha</li>
+              	</ul>  			
 	    	</p>	   
 
 			<input type="submit">

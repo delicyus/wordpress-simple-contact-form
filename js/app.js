@@ -15,8 +15,12 @@ new Vue({
         email_empty         : false,  
         email_invalid       : false, 
         isvalid             : false, 
-        CaptchaVal             : this.Captcha, 
+        CaptchaVal          : "", 
+        isValidCaptcha      : true, 
     },
+    mounted:function(){
+        this.Captcha(); //Captcha will execute at pageload
+      },    
     methods:{
 
     	handleSubmit: function(e){
@@ -26,7 +30,8 @@ new Vue({
             this.validate_email();
             this.nom_empty = this.validate_empty_input(this.nom_val)
             this.message_empty = this.validate_empty_input(this.message_val)
- 
+            this.isValidCaptcha = this.ValidCaptcha();
+
             // Submit form if all validation OK
             this.isvalid = this.validation_all_ok();
             if(this.isvalid){
@@ -87,6 +92,7 @@ new Vue({
               }
             var code = a + ' ' + b + ' ' + ' ' + c + ' ' + d + ' ' + e + ' '+ f + ' ' + g;
             document.getElementById("mainCaptcha").value = code;
+            this.CaptchaVal = code;
         },
         ValidCaptcha: function(){
           var string1 = this.removeSpaces(document.getElementById('mainCaptcha').value);
