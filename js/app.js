@@ -5,13 +5,14 @@ var emailRE = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@(
 new Vue({
     el: '#app',
 	data: {
-        nom_placeholder     : '',
-        message_val         : '',  
         message_empty       : false ,
-        nom_val             : '',  
+        message_email           : '',  
+        message_text         : '',  
+        
+        nom_placeholder     : '',
+        message_name             : '',  
         nom_empty           : false, 
         email_placeholder   : 'email@exemple.com',
-        email_val           : '',  
         email_empty         : false,  
         email_invalid       : false, 
         isvalid             : false, 
@@ -25,13 +26,14 @@ new Vue({
 
     	handleSubmit: function(e){
             e.preventDefault();
+            this.validate_email()
+            ;
 
             // Validate fields
-            this.validate_email();
-            this.nom_empty = this.validate_empty_input(this.nom_val)
-            this.message_empty = this.validate_empty_input(this.message_val)
-            this.isValidCaptcha = this.ValidCaptcha();
 
+            this.nom_empty = this.validate_empty_input(this.message_name)
+            this.message_empty = this.validate_empty_input(this.message_text)
+            this.isValidCaptcha = this.ValidCaptcha();
             // Submit form if all validation OK
             this.isvalid = this.validation_all_ok();
             if(this.isvalid){
@@ -59,14 +61,14 @@ new Vue({
 
         validate_email: function(){
             // Email vide
-            if(this.email_val==""){
+            if(this.message_email==""){
                 this.email_empty=true;
             }else{
                 // email saisi
                 this.email_empty= false;
 
                 // email validation du format : return true if is valide
-                this.email_invalid = emailRE.test(this.email_val);
+                this.email_invalid = emailRE.test(this.message_email);
                 
                 // Adaptes la variable pour le message d'erreur de la vue
                 if(!this.email_invalid)

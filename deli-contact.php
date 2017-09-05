@@ -36,6 +36,8 @@ if(! class_exists('Deli_Contact_Plugin') ){
 			$this -> wordings ['yourname'] 		= "votre nom";   			
 			$this -> wordings ['yourmessage'] 	= "votre message";   			
 			$this -> wordings ['verification'] 	= "Humain ?";   			
+			$this -> wordings ['captcha'] 	= "Saisissez le code";   			
+			$this -> wordings ['captcha-err'] 	= "Erreur captcha";   			
 			$this -> wordings ['envoyer'] 		= "Envoyer";   			
 			$this -> wordings ['email_invalid'] = $this -> email_invalid;
 			$this -> wordings ['email_empty'] 	= "Adresse e-mail requise.";
@@ -84,7 +86,7 @@ if(! class_exists('Deli_Contact_Plugin') ){
 
     	// process the submitted form			 
 		public function process_form(){
-		 
+		 tt($_POST);
 			if(isset($_POST)){
 
 				if(!$this -> human == 0){

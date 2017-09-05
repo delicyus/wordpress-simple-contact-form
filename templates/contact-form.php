@@ -9,66 +9,87 @@ if($Deli_Contact_Plugin){
 		<form 
 		method="POST" 
 		v-on:submit.prevent="handleSubmit"
-		id="deli-contact-form-fields">
-		    <p>
-			    <label for="email"><?php echo $attributes ['wordings'] ['youremail'] ?> : <span>*</span></label>
-		    	<br>
-		    	<input 
-		    	type="text" 
-		    	name="email_val" 
-		    	value="<?php echo esc_attr($_POST['email']); ?>" 
-		    	v-bind:placeholder="email_placeholder" 
-		    	v-model="email_val">
-			    <ul>
-			    	<li v-if="email_empty" class="error"><?php echo $attributes ['wordings'] ['email_empty'] ?></li>
-			    	<li v-if="email_invalid" class="error"><?php echo $attributes ['wordings'] ['email_invalid'] ?></li>
-			    </ul>
-	    	</p>
-		    
-		    <p>
-			    <label for="nom"><?php echo $attributes ['wordings'] ['yourname'] ?> : <span>*</span></label>
-		    	<br>
-		    	<input 
-		    	type="text" 
-		    	name="nom_val" 
-		    	value="<?php echo esc_attr($_POST['message_name']); ?>" 
-		    	v-bind:placeholder="nom_placeholder" 
-		    	v-model="nom_val" >
-			    <ul>
-			    	<li v-if="nom_empty" class="error"><?php echo $attributes ['wordings'] ['champ_requis'] ?></li>
-			    </ul>
-	    	</p>
-		    
-		    <p>
-			    <label for="nom"><?php echo $attributes ['wordings'] ['yourmessage'] ?> : <span>*</span></label>
-		    	<br>
-		    	<textarea 
-		    	name="message_val" 
-		    	v-model="message_val" ><?php echo esc_attr($_POST['message_text']); ?></textarea>
-			    <ul>
-			    	<li v-if="message_empty" class="error"><?php echo $attributes ['wordings'] ['message_empty'] ?></li>
-			    </ul>
-	    	</p>
+		id="deli-contact-form-fields" class="fields-grid">
 
-	    	<p>
+		    <div class="form-row">
+			    <div class="form-row-label">
+				    <label for="message_email"><?php echo $attributes ['wordings'] ['youremail'] ?>
+				    <span>*</span></label>
+			    </div>	
+			    <div class="form-row-input">
+			    	<input 
+			    	type="text" 
+			    	name="message_email" 
+			    	value="<?php echo esc_attr($_POST['message_email']); ?>" 
+			    	v-bind:placeholder="email_placeholder" 
+			    	v-model="message_email">
+				    <ul>
+				    	<li v-if="email_empty" class="error">
+				    		<?php echo $attributes ['wordings'] ['email_empty'] ?></li>
+				    	<li v-if="email_invalid" class="error">
+				    		<?php echo $attributes ['wordings'] ['email_invalid'] ?></li>
+				    </ul>
+			    </div>	
+		    </div>	
+
+		    <div class="form-row">
+			    <div class="form-row-label">
+				    <label for="message_name"><?php echo $attributes ['wordings'] ['yourname'] ?>
+				    <span>*</span></label>
+			    </div>
+		    	<div class="form-row-input">
+			    	<input 
+			    	type="text" 
+			    	name="message_name" 
+			    	value="<?php echo esc_attr($_POST['message_name']); ?>" 
+			    	v-bind:placeholder="nom_placeholder" 
+			    	v-model="message_name" >
+				    <ul>
+				    	<li v-if="nom_empty" class="error"><?php echo $attributes ['wordings'] ['champ_requis'] ?></li>
+				    </ul>
+			    </div>
+	    	</div>
+		    
+		     <div class="form-row">
+			    <div class="form-row-label">
+			    	<label for="message_text">
+				    	<?php echo $attributes ['wordings'] ['yourmessage'] ?>
+				    	<span>*</span>
+			    	</label>
+		    	</div>
+		    	<div class="form-row-input">
+					<textarea 
+			    	name="message_text" 
+			    	v-model="message_text"><?php echo esc_attr($_POST['message_text']); ?></textarea>
+				    <ul>
+				    	<li v-if="message_empty" class="error">
+				    	<?php echo $attributes ['wordings'] ['message_empty'] ?></li>
+				    </ul>		    		
+		    	</div>
+	    	</div>
+
+	    	<div class="form-row">
+              	<label for="mainCaptcha"><?php echo $attributes ['wordings'] ['verification'] ?> <span>*</span></label>
 	    		<input type="text" disabled="disabled" id="mainCaptcha"  v-model="CaptchaVal"/>
               	<input type="button" id="refresh" value="Refresh" v-on:click="Captcha" />
-              	<br>
-              	<!-- <input id="Button1" type="button" v-on:click="ValidCaptcha" value="check" />	 -->
-              	<label for="nom"><?php echo $attributes ['wordings'] ['verification'] ?> <span>*</span></label>
+	    		<br>
+	    		<br />
+              	<label for="mainCaptcha"><?php echo $attributes ['wordings'] ['captcha'] ?> <span>*</span></label>
               	<input type="text" id="txtInput"/>  
               	<ul>
-	              	<li v-if="!isValidCaptcha" class="error">err captcha</li>
+	              	<li v-if="!isValidCaptcha" class="error"><?php echo $attributes ['wordings'] ['captcha-err'] ?></li>
               	</ul>  			
-	    	</p>	   
+	    	</div>	   
 
-			<input type="submit">
+			<div class="form-row">
+				<input type="submit" class="btn btn-success">
+			</div>
 		</form>
 	</div>	
 
 
 
-	<!-- Non Vuejs -->
+	<!-- Non Vuejs
 	<div id="deli-contact-formulaire" class="deli-contact">
 	  
 	  <?php echo $Deli_Contact_Plugin -> response; ?>
@@ -92,7 +113,7 @@ if($Deli_Contact_Plugin){
 	    
 	  </form>
 	
-	</div>
+	</div> -->
 	<?php
 }
  ?>
