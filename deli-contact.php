@@ -40,6 +40,7 @@ if(! class_exists('Deli_Contact_Plugin') ){
 			$this -> wordings ['email_invalid'] = $this -> email_invalid;
 			$this -> wordings ['email_empty'] 	= "Adresse e-mail requise.";
 			$this -> wordings ['champ_requis'] 	= "Champ requis.";
+			$this -> wordings ['message_empty'] 	= "Votre message est vide.";
 
 			//php mailer variables
 			$this -> to 		= get_option('admin_email');

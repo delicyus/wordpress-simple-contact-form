@@ -4,8 +4,8 @@ global $Deli_Contact_Plugin;
 if($Deli_Contact_Plugin){
 	?>
 
+	<!-- adding Vuejs -->
 	<div id="app">
-
 		<form 
 		method="POST" 
 		v-on:submit.prevent="handleSubmit"
@@ -24,6 +24,7 @@ if($Deli_Contact_Plugin){
 			    	<li v-if="email_invalid" class="error"><?php echo $attributes ['wordings'] ['email_invalid'] ?></li>
 			    </ul>
 	    	</p>
+		    
 		    <p>
 			    <label for="nom"><?php echo $attributes ['wordings'] ['yourname'] ?> : <span>*</span></label>
 		    	<br>
@@ -34,13 +35,36 @@ if($Deli_Contact_Plugin){
 		    	v-bind:placeholder="nom_placeholder" 
 		    	v-model="nom_val" >
 			    <ul>
-			    	<li v-if="nom_empty" class="error">Champ requis</li>
+			    	<li v-if="nom_empty" class="error"><?php echo $attributes ['wordings'] ['champ_requis'] ?></li>
 			    </ul>
 	    	</p>
+		    
+		    <p>
+			    <label for="nom"><?php echo $attributes ['wordings'] ['yourmessage'] ?> : <span>*</span></label>
+		    	<br>
+		    	<textarea 
+		    	name="message_val" 
+		    	v-model="message_val" ><?php echo esc_attr($_POST['message_text']); ?></textarea>
+			    <ul>
+			    	<li v-if="message_empty" class="error"><?php echo $attributes ['wordings'] ['message_empty'] ?></li>
+			    </ul>
+	    	</p>
+
+	    	<p>
+	    		<input type="text" disabled="disabled" id="mainCaptcha"  v-model="Captcha()"/>
+              	<input type="button" id="refresh" value="Refresh" v-on:click="Captcha" />
+              	<input id="Button1" type="button" v-on:click="ValidCaptcha" value="check" />	
+              	<input type="text" id="txtInput"/>  
+              	<span v-if="!ValidCaptcha()">err captcha</span>  			
+	    	</p>	   
+
 			<input type="submit">
 		</form>
 	</div>	
 
+
+
+	<!-- Non Vuejs -->
 	<div id="deli-contact-formulaire" class="deli-contact">
 	  
 	  <?php echo $Deli_Contact_Plugin -> response; ?>
