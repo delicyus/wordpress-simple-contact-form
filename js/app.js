@@ -5,9 +5,9 @@ var emailRE = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@(
 new Vue({
     el: '#app',
 	data: {
-        message_name             : '',  
-        message_email           : '',  
-        message_text         : '',  
+        message_name    : '',  
+        message_email   : '',  
+        message_text    : '',  
         
         nom_placeholder     : '',
         email_placeholder   : 'email@exemple.com',
