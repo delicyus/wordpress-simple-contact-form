@@ -91,7 +91,7 @@ if(! class_exists('Deli_Contact_Plugin') ){
 
 				if(!$this -> human == 0){
 					
-					if( $this -> human != 2) 
+					if( $this -> human != 1) 
 						$this -> generate_response("error", $this -> not_human); //not human!
 					else {
 

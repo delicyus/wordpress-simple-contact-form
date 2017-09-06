@@ -5,17 +5,20 @@ var emailRE = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@(
 new Vue({
     el: '#app',
 	data: {
-        message_empty       : false ,
+        message_name             : '',  
         message_email           : '',  
         message_text         : '',  
         
         nom_placeholder     : '',
-        message_name             : '',  
-        nom_empty           : false, 
         email_placeholder   : 'email@exemple.com',
+
+        message_empty       : false ,
+        nom_empty           : false, 
         email_empty         : false,  
         email_invalid       : false, 
+        
         isvalid             : false, 
+        
         CaptchaVal          : "", 
         isValidCaptcha      : true, 
     },
@@ -26,14 +29,13 @@ new Vue({
 
     	handleSubmit: function(e){
             e.preventDefault();
-            this.validate_email()
-            ;
 
             // Validate fields
-
+            this.validate_email();
             this.nom_empty = this.validate_empty_input(this.message_name)
             this.message_empty = this.validate_empty_input(this.message_text)
             this.isValidCaptcha = this.ValidCaptcha();
+
             // Submit form if all validation OK
             this.isvalid = this.validation_all_ok();
             if(this.isvalid){
@@ -45,7 +47,8 @@ new Vue({
             if(!this.email_empty 
                 && !this.email_invalid 
                 && !this.nom_empty
-                && !this.message_empty){
+                && !this.message_empty
+                && this.isValidCaptcha){
                 return true;
             }
         },
@@ -57,7 +60,6 @@ new Vue({
                 return false;
             }
         },
-
 
         validate_email: function(){
             // Email vide
@@ -78,7 +80,6 @@ new Vue({
             }
         },
 
-        // TODO 
         // SEE https://stackoverflow.com/questions/21727595/how-to-create-a-text-captcha-using-java-script-in-html-form
         Captcha: function(){
              var alpha = new Array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
