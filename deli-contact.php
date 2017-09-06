@@ -38,6 +38,7 @@ if(! class_exists('Deli_Contact_Plugin') ){
 			$this -> wordings ['verification'] 	= "Humain ?";   			
 			$this -> wordings ['captcha'] 	= "Saisissez le code";   			
 			$this -> wordings ['captcha-err'] 	= "Erreur captcha";   			
+			$this -> wordings ['captcha-refresh'] 	= "Refresh";   			
 			$this -> wordings ['envoyer'] 		= "Envoyer";   			
 			$this -> wordings ['email_invalid'] = $this -> email_invalid;
 			$this -> wordings ['email_empty'] 	= "Adresse e-mail requise.";
@@ -84,32 +85,81 @@ if(! class_exists('Deli_Contact_Plugin') ){
 
         // PROCESSING
 
+  //   	// process the submitted form			 
+		// public function process_form(){
+		//  tt($_POST);
+		// 	if(isset($_POST)){
+
+		// 		if(!$this -> human == 0){
+					
+		// 			if( $this -> human != 1) 
+		// 				$this -> generate_response("error", $this -> not_human); //not human!
+		// 			else {
+
+		// 			  //validate email
+		// 			  if(!filter_var($this -> email, FILTER_VALIDATE_EMAIL))
+		// 			    $this -> generate_response("error", $this -> email_invalid);
+		// 			  else //email is valid
+		// 			  {
+		// 			    // validate presence of name and message
+		// 			    if(empty($this -> name) || empty($this -> message)){
+		// 			      $this -> generate_response("error", $this -> missing_content);
+		// 			    }
+		// 			    else //ready to go!
+		// 			    {
+		// 			      $this -> sent = wp_mail($this -> to, $this -> subject, strip_tags($this -> message), $this -> headers);
+		// 			      if($this ->sent) {
+		// 			      	$this -> generate_response("success", $this ->message_sent); //message sent!
+		// 			      	$_POST = array();
+		// 			      }
+		// 			      else 
+		// 			      	$this -> generate_response("error", $this ->message_unsent); //message wasn't sent
+		// 			    }
+		// 			  }
+		// 			}
+		// 		}
+		// 		elseif ($_POST['submitted']) 
+		// 			$this -> generate_response("error", $this ->missing_content);
+		// 	}
+		// }
     	// process the submitted form			 
 		public function process_form(){
 		 tt($_POST);
+
 			if(isset($_POST)){
 
-				if(!$this -> human == 0){
-					
-					if( $this -> human != 1) 
-						$this -> generate_response("error", $this -> not_human); //not human!
+				// Verifie le captcha
+				if('' == $this -> human 
+					||  strlen( $this -> human ) == 7){
+
+					// decoupe le captcha
+					$human_alpha = substr($this-> human, 0,4);
+					$human_numerics = substr($this-> human, 4,7);
+					if( '' == $human_numerics
+						|| '' == $human_alpha
+						|| !intval($human_numerics)) 
+						$this -> generate_response("error", $this ->not_human); //not human!
 					else {
 
 					  //validate email
 					  if(!filter_var($this -> email, FILTER_VALIDATE_EMAIL))
-					    $this -> generate_response("error", $this -> email_invalid);
+					    $this -> generate_response("error", $this ->email_invalid);
 					  else //email is valid
 					  {
 					    // validate presence of name and message
-					    if(empty($this -> name) || empty($this -> message)){
-					      $this -> generate_response("error", $this -> missing_content);
+					    if(empty($this -> name) || empty($this ->message)){
+					      $this -> generate_response("error", $this ->missing_content);
 					    }
 					    else //ready to go!
 					    {
-					      $this -> sent = wp_mail($this -> to, $this -> subject, strip_tags($this -> message), $this -> headers);
-					      if($this ->sent) {
-					      	$this -> generate_response("success", $this ->message_sent); //message sent!
-					      	$_POST = array();
+					    	// SEND EMAIL 
+				    		//$this -> sent = wp_mail($this -> to, $this -> subject, strip_tags($this ->message), $this -> headers);
+					      
+					      	if($this ->sent) {
+					      		$this -> generate_response("success", $this ->message_sent); //message sent!
+					      	
+					      	// Reset form
+				      		$_POST = array();
 					      }
 					      else 
 					      	$this -> generate_response("error", $this ->message_unsent); //message wasn't sent

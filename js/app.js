@@ -80,31 +80,45 @@ new Vue({
             }
         },
 
+        // Generation du code captcha
         // SEE https://stackoverflow.com/questions/21727595/how-to-create-a-text-captcha-using-java-script-in-html-form
         Captcha: function(){
-             var alpha = new Array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
-             var i;
-             for (i=0;i<6;i++){
+            // Generate la premiere partie du code captcha depuuis des lettres
+            var alpha = new Array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
+            var i;
+            for (i=0;i<3;i++){
                var a = alpha[Math.floor(Math.random() * alpha.length)];
                var b = alpha[Math.floor(Math.random() * alpha.length)];
                var c = alpha[Math.floor(Math.random() * alpha.length)];
                var d = alpha[Math.floor(Math.random() * alpha.length)];
-               var e = alpha[Math.floor(Math.random() * alpha.length)];
-               var f = alpha[Math.floor(Math.random() * alpha.length)];
-               var g = alpha[Math.floor(Math.random() * alpha.length)];
-              }
-            var code = a + ' ' + b + ' ' + ' ' + c + ' ' + d + ' ' + e + ' '+ f + ' ' + g;
+            }
+            // Generate la seconde partie du code captcha depuuis des chiffres
+            var numerics = new Array('1','2','3','4','5','6','7','8','9','0');
+            var i;
+            for (i=0;i<2;i++){
+               var x = numerics[Math.floor(Math.random() * numerics.length)];
+               var y = numerics[Math.floor(Math.random() * numerics.length)];
+               var z = numerics[Math.floor(Math.random() * numerics.length)];
+            }
+
+            // Genere le code en joignant les deux parties
+            var code = a + b + c + d + x + y + z;
+
+            // Update DOM avec le code
             document.getElementById("mainCaptcha").value = code;
+
+            // Update la valeur du code dans l'app 
             this.CaptchaVal = code;
         },
+        // Test captcha : la saisie user versus code genere
         ValidCaptcha: function(){
-          var string1 = this.removeSpaces(document.getElementById('mainCaptcha').value);
-          var string2 = this.removeSpaces(document.getElementById('txtInput').value);
-          if (string1 == string2){
-            return true;
-          }else{        
-            return false;
-          }
+            var string1 = this.removeSpaces(document.getElementById('mainCaptcha').value);
+            var string2 = this.removeSpaces(document.getElementById('message_human').value);
+            if (string1 == string2){
+                return true;
+            }else{        
+                return false;
+            }
         },
         removeSpaces: function(string){
             return string.split(' ').join('');

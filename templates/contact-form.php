@@ -69,16 +69,28 @@ if($Deli_Contact_Plugin){
 	    	</div>
 
 	    	<div class="form-row">
-              	<label for="mainCaptcha"><?php echo $attributes ['wordings'] ['verification'] ?> <span>*</span></label>
+
+              	<label for="mainCaptcha">
+              		<?php echo $attributes ['wordings'] ['verification'] ?> 
+              		<span>*</span>
+              	</label>
+
 	    		<input type="text" disabled="disabled" id="mainCaptcha"  v-model="CaptchaVal"/>
-              	<input type="button" id="refresh" value="Refresh" v-on:click="Captcha" />
-	    		<br>
-	    		<br />
-              	<label for="mainCaptcha"><?php echo $attributes ['wordings'] ['captcha'] ?> <span>*</span></label>
-              	<input type="text" id="txtInput"/>  
+
+              	<input type="button" id="refresh" value="<?php echo $attributes ['wordings'] ['captcha-refresh'] ?>" v-on:click="Captcha" />
+
+	    		<br /><br />
+
+              	<label for="mainCaptcha">
+	              	<?php echo $attributes ['wordings'] ['captcha'] ?> 
+	              	<span>*</span>
+              	</label>
+              	<input type="text" id="message_human" name="message_human" />  
+
               	<ul>
 	              	<li v-if="!isValidCaptcha" class="error"><?php echo $attributes ['wordings'] ['captcha-err'] ?></li>
-              	</ul>  			
+              	</ul>  	
+
 	    	</div>	   
 
 			<div class="form-row">
