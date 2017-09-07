@@ -11,6 +11,8 @@ if($Deli_Contact_Plugin){
 		v-on:submit.prevent="handleSubmit"
 		id="deli-contact-form-fields" class="fields-grid">
 
+	  	<?php echo $Deli_Contact_Plugin -> response; ?>
+
 		    <div class="form-row">
 			    <div class="form-row-label">
 				    <label for="message_email"><?php echo $attributes ['wordings'] ['youremail'] ?>

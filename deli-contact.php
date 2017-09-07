@@ -85,46 +85,8 @@ if(! class_exists('Deli_Contact_Plugin') ){
 
         // PROCESSING
 
-  //   	// process the submitted form			 
-		// public function process_form(){
-		//  tt($_POST);
-		// 	if(isset($_POST)){
-
-		// 		if(!$this -> human == 0){
-					
-		// 			if( $this -> human != 1) 
-		// 				$this -> generate_response("error", $this -> not_human); //not human!
-		// 			else {
-
-		// 			  //validate email
-		// 			  if(!filter_var($this -> email, FILTER_VALIDATE_EMAIL))
-		// 			    $this -> generate_response("error", $this -> email_invalid);
-		// 			  else //email is valid
-		// 			  {
-		// 			    // validate presence of name and message
-		// 			    if(empty($this -> name) || empty($this -> message)){
-		// 			      $this -> generate_response("error", $this -> missing_content);
-		// 			    }
-		// 			    else //ready to go!
-		// 			    {
-		// 			      $this -> sent = wp_mail($this -> to, $this -> subject, strip_tags($this -> message), $this -> headers);
-		// 			      if($this ->sent) {
-		// 			      	$this -> generate_response("success", $this ->message_sent); //message sent!
-		// 			      	$_POST = array();
-		// 			      }
-		// 			      else 
-		// 			      	$this -> generate_response("error", $this ->message_unsent); //message wasn't sent
-		// 			    }
-		// 			  }
-		// 			}
-		// 		}
-		// 		elseif ($_POST['submitted']) 
-		// 			$this -> generate_response("error", $this ->missing_content);
-		// 	}
-		// }
     	// process the submitted form			 
 		public function process_form(){
-		 tt($_POST);
 
 			if(isset($_POST)){
 
@@ -153,7 +115,7 @@ if(! class_exists('Deli_Contact_Plugin') ){
 					    else //ready to go!
 					    {
 					    	// SEND EMAIL 
-				    		//$this -> sent = wp_mail($this -> to, $this -> subject, strip_tags($this ->message), $this -> headers);
+				    		$this -> sent = wp_mail($this -> to, $this -> subject, strip_tags($this ->message), $this -> headers);
 					      
 					      	if($this ->sent) {
 					      		$this -> generate_response("success", $this ->message_sent); //message sent!
